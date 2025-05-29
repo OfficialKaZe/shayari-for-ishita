@@ -2,39 +2,544 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/generated-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="./generated-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>For Ishita ❤️</title>
     <meta name="description" content="A personalized website with galaxy background, romantic quotes, and beautiful shayaris for Ishita" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-      body {
+      :root {
+        --background: 210 11% 3%;
+        --foreground: 0 0% 98%;
+        --space-navy: 203 82% 8%;
+        --cosmic-purple: 262 74% 11%;
+        --star-gold: 51 100% 50%;
+        --soft-gold: 47 84% 79%;
+        --space-blue: 218 48% 19%;
+      }
+
+      * {
         margin: 0;
         padding: 0;
-        background: linear-gradient(135deg, #0B1426 0%, #1A0B2E 50%, #162447 100%);
+        box-sizing: border-box;
+      }
+
+      body {
+        background: linear-gradient(135deg, hsl(var(--space-navy)) 0%, hsl(var(--cosmic-purple)) 50%, hsl(var(--space-blue)) 100%);
         min-height: 100vh;
         font-family: 'Inter', sans-serif;
         overflow-x: hidden;
+        color: white;
       }
-      
-      .loading {
+
+      .galaxy-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+        overflow: hidden;
+        z-index: -1;
+      }
+
+      .star {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 2s ease-in-out infinite;
+      }
+
+      .falling-star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: linear-gradient(45deg, hsl(var(--star-gold)), #FFF);
+        border-radius: 50%;
+        animation: fallingStar 3s linear infinite;
+        box-shadow: 0 0 10px hsl(var(--star-gold));
+      }
+
+      .shooting-star {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: linear-gradient(45deg, #FFD700, #FFF, #87CEEB);
+        border-radius: 50%;
+        box-shadow: 0 0 15px #FFD700, 0 0 25px #FFD700;
+      }
+
+      .shooting-star::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100px;
+        height: 2px;
+        background: linear-gradient(90deg, rgba(255, 215, 0, 0.8), rgba(255, 215, 0, 0.4), transparent);
+        transform: rotate(-45deg);
+        transform-origin: 0 0;
+      }
+
+      .floating-heart {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: #ff6b9d;
+        transform: rotate(45deg);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        animation: floatUp 8s linear infinite;
+      }
+
+      .floating-heart::before,
+      .floating-heart::after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: #ff6b9d;
+        border-radius: 50%;
+      }
+
+      .floating-heart::before {
+        top: -10px;
+        left: 0;
+      }
+
+      .floating-heart::after {
+        top: 0;
+        left: -10px;
+      }
+
+      .floating-heart:hover {
+        transform: rotate(45deg) scale(1.2);
+        filter: brightness(1.2);
+      }
+
+      .glass-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      .main-container {
+        min-height: 100vh;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
-        height: 100vh;
+        justify-content: center;
+        padding: 20px;
+        position: relative;
+        z-index: 10;
+      }
+
+      .title {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(2rem, 8vw, 4rem);
+        font-weight: bold;
+        margin-bottom: 2rem;
+        text-align: center;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .quote {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(1.2rem, 4vw, 1.5rem);
+        color: hsl(var(--soft-gold));
+        line-height: 1.6;
+        text-align: center;
+        margin-bottom: 2rem;
+        max-width: 800px;
+      }
+
+      .button {
+        background: linear-gradient(45deg, #9333ea, #ec4899);
+        border: none;
+        padding: 15px 30px;
+        border-radius: 25px;
         color: white;
         font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 10px;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
+      }
+
+      .shayari-container {
+        display: none;
+        max-width: 900px;
+        text-align: center;
+      }
+
+      .shayari-text {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(1.1rem, 3vw, 1.3rem);
+        color: hsl(var(--soft-gold));
+        line-height: 1.8;
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 2rem 0;
+        white-space: pre-line;
+      }
+
+      .typewriter-cursor {
+        border-right: 2px solid hsl(var(--star-gold));
+        animation: blink 1s infinite;
+      }
+
+      .controls {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 2rem;
+      }
+
+      .message-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(15px);
+        border: 2px solid hsl(var(--star-gold));
+        border-radius: 20px;
+        padding: 20px 30px;
+        font-family: 'Playfair Display', serif;
+        font-size: 18px;
+        color: hsl(var(--space-navy));
+        text-align: center;
+        z-index: 1000;
+        animation: messageSlideIn 0.5s ease-out;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        max-width: 400px;
+      }
+
+      @keyframes twinkle {
+        0%, 100% { opacity: 0.3; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.2); }
+      }
+
+      @keyframes fallingStar {
+        0% { transform: translateY(-100vh) translateX(0); opacity: 1; }
+        100% { transform: translateY(100vh) translateX(100px); opacity: 0; }
+      }
+
+      @keyframes shootingStar {
+        0% { transform: translateY(-50px) translateX(-50px); opacity: 1; }
+        100% { transform: translateY(100vh) translateX(100vw); opacity: 0; }
+      }
+
+      @keyframes floatUp {
+        0% { transform: translateY(100vh) rotate(45deg); opacity: 0.8; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { transform: translateY(-100px) rotate(45deg); opacity: 0; }
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+      }
+
+      @keyframes blink {
+        0%, 50% { border-color: hsl(var(--star-gold)); }
+        51%, 100% { border-color: transparent; }
+      }
+
+      @keyframes messageSlideIn {
+        0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+        100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      }
+
+      @keyframes heartPop {
+        0% { transform: rotate(45deg) scale(1); opacity: 1; }
+        50% { transform: rotate(45deg) scale(1.5); opacity: 0.8; }
+        100% { transform: rotate(45deg) scale(0); opacity: 0; }
+      }
+
+      .heart-pop {
+        animation: heartPop 0.6s ease-out forwards;
+      }
+
+      @media (max-width: 768px) {
+        .controls {
+          flex-direction: column;
+          align-items: center;
+        }
+        
+        .button {
+          width: 200px;
+        }
       }
     </style>
   </head>
   <body>
-    <div id="root">
-      <div class="loading">Loading your beautiful website... ✨</div>
+    <div class="galaxy-bg" id="galaxyBg"></div>
+    
+    <div class="main-container">
+      <div class="glass-card" style="padding: 3rem; margin-bottom: 2rem;">
+        <h1 class="title">For Ishita ❤️</h1>
+        <div class="quote" id="quote"></div>
+        <div style="font-size: 14px; color: #ccc; margin-top: 1rem;">
+          ✨ Refresh the page for a new message ✨
+        </div>
+      </div>
+
+      <div id="quote-section">
+        <button class="button" onclick="showShayari()">
+          Read Beautiful Shayaris 💫
+        </button>
+      </div>
+
+      <div id="shayari-section" class="shayari-container glass-card" style="padding: 3rem;">
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 2rem;">
+          Words from the Heart
+        </h2>
+        <div class="shayari-text" id="shayari-text"></div>
+        <div class="controls">
+          <button class="button" onclick="previousShayari()" style="background: linear-gradient(45deg, #2563eb, #9333ea);">
+            ← Previous
+          </button>
+          <button class="button" onclick="nextShayari()" style="background: linear-gradient(45deg, #059669, #2563eb);">
+            Next →
+          </button>
+          <button class="button" onclick="backToQuote()" style="background: linear-gradient(45deg, #dc2626, #ec4899);">
+            Back to Quote
+          </button>
+        </div>
+      </div>
     </div>
+
     <script>
-      // Redirect to the development server if needed
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        window.location.href = 'http://localhost:5000';
+      const quotes = [
+        "How lucky I am to have someone who makes even the darkest nights sparkle like galaxies.",
+        "In a universe of billions of stars, you shine the brightest in my sky.",
+        "Every day I count my blessings, and you're always number one on that endless list.",
+        "Lucky doesn't even begin to describe having you illuminate my world.",
+        "Among all the cosmic wonders, having you in my life is the greatest miracle.",
+        "I must have wished on every shooting star to deserve someone as amazing as you.",
+        "In this vast universe, finding you feels like discovering my own personal constellation.",
+        "How fortunate I am that our paths crossed in this infinite galaxy of possibilities."
+      ];
+
+      const shayaris = [
+        "Kabhi tu udaas ho, toh bas aankhein band kar lena,\\nMain teri yaadon mein, khamoshi se aa jaunga.\\nHar aansu tere chehre se chura lunga,\\nTere chehre pe muskaan phir se saja dunga.\\nTujhko har dard se chhupa lunga.",
+        "Tere ishq mein, main kho gaya hoon,\\nHar raah mein tera intezaar karta hoon.\\nTu meri duniya, tu meri jaan hai,\\nTere bina zindagi bekaar karta hoon.\\nTujhse mohabbat meri ibadat hai.",
+        "Khamoshi mein chhupe hain mere jazbaat,\\nTere liye dhadakta hai mera dil raat.\\nTu jo paas ho toh sab kuch hai,\\nTu jo door ho toh sirf malamat.\\nTere bina adhura hoon main.",
+        "Teri muskurahat meri khushi hai,\\nTeri pareshani meri pareeshani hai.\\nJo bhi haal ho, main saath hoon tera,\\nYeh meri mohabbat ki guarantee hai.\\nTujhse juda kabhi nahi hounga.",
+        "Waqt guzar jaaye, mausam badal jaaye,\\nMeri mohabbat kabhi na badlegi.\\nTere saath guzaare lamhaat yaad rahe,\\nMeri dil ki ye deewaanegi.\\nTu hamesha meri jaan rahegi.",
+        "Kabhi kisi ne dhoka diya ho tujhko,\\nMain us gham ko door kar dunga.\\nTere dil ki har toothi umang ko,\\nPhir se jinda kar dunga.\\nTere saath hoon, darna mat.",
+        "Raatein kati hain tere khayal mein,\\nDin guzaara hai teri yaad mein.\\nTu jo mil jaaye toh zindagi haseen,\\nTu jo chali jaaye toh sab barbaad mein.\\nTere bina sab suna sa lagta hai.",
+        "Tere hasne ki awaz sunke,\\nMera dil khush ho jaata hai.\\nTere rone ki awaz sunke,\\nMera kaleja kat jaata hai.\\nTujhko khush dekhna chahta hoon.",
+        "Mohabbat mein koi galat ya sahi nahi,\\nDil ki baat mein koi logic nahi.\\nMain tujhse pyaar karta hoon,\\nIsme koi apology nahi.\\nTu meri zindagi ka matlab hai.",
+        "Teri aankhon mein dekha hai maine,\\nApna ghar, apna sukoon.\\nTere saath bitaaye pal yaad aate,\\nJab main hota hoon majboor.\\nTeri yaadon mein kho jaata hoon.",
+        "Koi kitni bhi dur ho jaaye,\\nMohabbat kabhi kam nahi hoti.\\nTere liye meri feelings hamesha,\\nWaise hi strong rahegi.\\nDistance doesn't matter to my heart.",
+        "Zindagi mein kitne log aaye gaye,\\nSab apne raah chale gaye.\\nSirf tu hai jo ab tak saath hai,\\nMere dil mein bas gaye.\\nTujhe bhoolna mumkin nahi.",
+        "Teri baaton mein aise jadu hai,\\nKe main sun sun ke kho jaata hoon.\\nTere saath waqt itna haseen hai,\\nKe main time ko rok jaata hoon.\\nTere saath har pal special hai.",
+        "Kabhi agar main naraaz lag raha hoon,\\nToh samjhna main hurt hoon.\\nPar tu jaan le ek baat,\\nTujhse nafrat kabhi nahi kar sakta.\\nTujhko sirf mohabbat kar sakta hoon.",
+        "Purani yaadon ka silsila,\\nDil mein abhi bhi zinda hai.\\nTere saath bitaaye din,\\nMere sapnon mein aaj bhi basa hai.\\nNostalgia ki meethi si khushi.",
+        "Agar kabhi tujhe laga ho,\\nMain tujhe chhod dunga.\\nToh tu galat samjhi hai,\\nMain tujhe kabhi nahi bhool dunga.\\nZindagi bhar saath nibhaunga.",
+        "Tere jaane ka gham nahi,\\nTere khush na hone ka gham hai.\\nMain chahta hoon tu hamesha hansti rahe,\\nYahi meri sabse badi khwaish hai.\\nTeri khushi meri priority hai.",
+        "Dil ki baat kehna aasan nahi,\\nPar tujhe batana zaroori hai.\\nTu meri har dua mein shamil hai,\\nTu meri zindagi ki poori hai.\\nTere bina kuch bhi incomplete hai.",
+        "Rishte toote hain, bandhe hain,\\nPar kuch log dil mein bas jaate hain.\\nTu bhi unhi mein se ek hai,\\nJo kabhi bhulaye nahi bhoolte.\\nHamesha yaad rahega tu.",
+        "Mohabbat sirf words mein nahi,\\nActions mein dikhti hai.\\nMain tujhe prove karunga,\\nKe meri feelings real hai.\\nTrust kar mujh par.",
+        "Tere bina ye duniya suni si lagti hai,\\nTere saath har jagah jannat lagti hai.\\nTu jo saath ho toh koi tension nahi,\\nTu jo door ho toh har baat bhari lagti hai.\\nTu meri jaan hai Ishita.",
+        "Kabhi agar tune feel kiya ho,\\nKe main tujhe ignore kar raha hoon.\\nToh samjhna main confused hoon,\\nPar pyaar tujhse hamesha kar raha hoon.\\nMisunderstanding mat kar.",
+        "Teri smile dekh ke lagta hai,\\nKe saari duniya ki khushi mil gayi.\\nTeri problems dekh ke lagta hai,\\nKe meri saari happiness chhin gayi.\\nTujhko dekh kar jeeta hoon.",
+        "Jo bhi hua hai past mein,\\nMain uske liye sorry hoon.\\nPar ek baat clear kar dun,\\nTere liye hamesha ready hoon.\\nTu bol toh sab theek kar dun.",
+        "Koi kitna bhi badal jaaye,\\nMere feelings constant rahengi.\\nTu agar 100 baar dhoka de,\\nMain 101st time maaf karunga.\\nUnconditional love hai yeh.",
+        "Late night conversations yaad aate,\\nWo hasna hasaana yaad aata.\\nTeri har baat, har smile,\\nSab kuch yaad aata.\\nGood old days ki yaadein.",
+        "Teri har galti maaf hai,\\nTera har mood accept hai.\\nTu jaise bhi hai, perfect hai,\\nChange karne ki zaroorat nahi.\\nTu already amazing hai.",
+        "Zindagi mein jo bhi challenges aayein,\\nMain tera support system rahunga.\\nTu kabhi akeli feel na kar,\\nMain hamesha tera backing rahunga.\\nTogether we can face anything.",
+        "Tere khwaabon ko poora karne mein,\\nMain apni puri zindagi laga dun.\\nTeri har wish fulfill karne mein,\\nApna sab kuch qurbaan kar dun.\\nTujhe khush dekhna chahta hoon.",
+        "Thank you for being in my life,\\nTu aayi toh colors aa gaye.\\nPehle sab black and white tha,\\nTere saath rainbow ban gaye.\\nLife mein tu hi toh rang hai."
+      ];
+
+      const heartMessages = [
+        "You matter to someone ❤️",
+        "You are loved beyond measure 💫",
+        "Someone thinks about you every day ✨",
+        "You bring joy to someone's life 🌟",
+        "You are someone's reason to smile 😊",
+        "Your presence makes the world brighter ☀️",
+        "You are appreciated more than you know 💝",
+        "Someone is grateful for you every day 🙏",
+        "You make someone's life beautiful 🌸",
+        "Your existence is a blessing to someone 🌈"
+      ];
+
+      let currentShayariIndex = 0;
+      let isTyping = false;
+
+      // Initialize the website
+      function init() {
+        // Display random quote
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        document.getElementById('quote').textContent = randomQuote;
+
+        // Create galaxy background
+        createGalaxyBackground();
       }
+
+      // Create galaxy background effects
+      function createGalaxyBackground() {
+        const galaxyBg = document.getElementById('galaxyBg');
+        
+        // Create static stars
+        for (let i = 0; i < 150; i++) {
+          const star = document.createElement('div');
+          star.className = 'star';
+          star.style.left = Math.random() * 100 + '%';
+          star.style.top = Math.random() * 100 + '%';
+          star.style.width = Math.random() * 3 + 1 + 'px';
+          star.style.height = star.style.width;
+          star.style.animationDelay = Math.random() * 2 + 's';
+          star.style.animationDuration = (Math.random() * 4 + 2) + 's';
+          star.style.filter = 'blur(0.5px)';
+          galaxyBg.appendChild(star);
+        }
+
+        // Create falling stars
+        setInterval(() => {
+          const fallingStar = document.createElement('div');
+          fallingStar.className = 'falling-star';
+          fallingStar.style.left = Math.random() * 100 + '%';
+          fallingStar.style.animationDuration = (Math.random() * 2 + 2) + 's';
+          fallingStar.style.animationDelay = Math.random() * 1 + 's';
+          galaxyBg.appendChild(fallingStar);
+
+          setTimeout(() => {
+            if (fallingStar.parentNode) {
+              fallingStar.remove();
+            }
+          }, 6000);
+        }, 1000);
+
+        // Create shooting stars
+        setInterval(() => {
+          const shootingStar = document.createElement('div');
+          shootingStar.className = 'shooting-star';
+          shootingStar.style.left = Math.random() * 30 + '%';
+          shootingStar.style.top = Math.random() * 30 + '%';
+          shootingStar.style.animation = `shootingStar ${Math.random() * 2 + 1.5}s linear`;
+          galaxyBg.appendChild(shootingStar);
+
+          setTimeout(() => {
+            if (shootingStar.parentNode) {
+              shootingStar.remove();
+            }
+          }, 4000);
+        }, 3000);
+
+        // Create floating hearts
+        setInterval(() => {
+          const heart = document.createElement('div');
+          heart.className = 'floating-heart';
+          heart.style.left = Math.random() * 90 + 5 + '%';
+          heart.style.animationDuration = (Math.random() * 3 + 6) + 's';
+          heart.style.animationDelay = Math.random() * 2 + 's';
+          
+          heart.addEventListener('click', () => {
+            heart.classList.add('heart-pop');
+            
+            const message = document.createElement('div');
+            message.className = 'message-popup';
+            message.textContent = heartMessages[Math.floor(Math.random() * heartMessages.length)];
+            document.body.appendChild(message);
+
+            setTimeout(() => {
+              if (message.parentNode) {
+                message.remove();
+              }
+            }, 3000);
+
+            setTimeout(() => {
+              if (heart.parentNode) {
+                heart.remove();
+              }
+            }, 600);
+          });
+
+          galaxyBg.appendChild(heart);
+
+          setTimeout(() => {
+            if (heart.parentNode) {
+              heart.remove();
+            }
+          }, 10000);
+        }, 4000);
+      }
+
+      // Show shayari section
+      function showShayari() {
+        document.getElementById('quote-section').style.display = 'none';
+        document.getElementById('shayari-section').style.display = 'block';
+        displayCurrentShayari();
+      }
+
+      // Back to quote section
+      function backToQuote() {
+        document.getElementById('shayari-section').style.display = 'none';
+        document.getElementById('quote-section').style.display = 'block';
+      }
+
+      // Display current shayari with typewriter effect
+      function displayCurrentShayari() {
+        if (isTyping) return;
+        
+        const shayari = shayaris[currentShayariIndex].replace(/\\n/g, '\n');
+        const shayariElement = document.getElementById('shayari-text');
+        shayariElement.innerHTML = '';
+        isTyping = true;
+
+        const chars = shayari.split('');
+        let charIndex = 0;
+        let displayedText = '';
+
+        const typeNextChar = () => {
+          if (charIndex < chars.length) {
+            const currentChar = chars[charIndex];
+            displayedText += currentChar;
+            shayariElement.innerHTML = displayedText + '<span class="typewriter-cursor"></span>';
+            charIndex++;
+            setTimeout(typeNextChar, 30);
+          } else {
+            isTyping = false;
+            setTimeout(() => {
+              shayariElement.innerHTML = displayedText;
+            }, 1000);
+          }
+        };
+
+        setTimeout(typeNextChar, 500);
+      }
+
+      // Navigation functions
+      function nextShayari() {
+        if (isTyping) return;
+        currentShayariIndex = (currentShayariIndex + 1) % shayaris.length;
+        displayCurrentShayari();
+      }
+
+      function previousShayari() {
+        if (isTyping) return;
+        currentShayariIndex = currentShayariIndex === 0 ? shayaris.length - 1 : currentShayariIndex - 1;
+        displayCurrentShayari();
+      }
+
+      // Initialize when page loads
+      window.addEventListener('load', init);
     </script>
   </body>
 </html>
