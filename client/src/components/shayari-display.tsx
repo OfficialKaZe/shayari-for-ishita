@@ -19,34 +19,26 @@ export default function ShayariDisplay({ onBackToQuote }: ShayariDisplayProps) {
     setIsTyping(true);
     setShowCursor(true);
 
-    // Split shayari into words
-    const words = shayari.split(' ');
-    let wordIndex = 0;
+    // Split shayari into characters for smoother animation
+    const chars = shayari.split('');
+    let charIndex = 0;
 
-    const typeNextWord = () => {
-      if (wordIndex < words.length) {
-        const currentWord = words[wordIndex];
+    const typeNextChar = () => {
+      if (charIndex < chars.length) {
+        const currentChar = chars[charIndex];
         
         setTimeout(() => {
-          setDisplayedText(prev => {
-            // Handle line breaks
-            if (currentWord.includes('\n')) {
-              const parts = currentWord.split('\n');
-              return prev + parts[0] + '\n' + (parts[1] ? parts[1] + ' ' : '');
-            } else {
-              return prev + currentWord + ' ';
-            }
-          });
-          
-          wordIndex++;
-          typeNextWord();
-        }, 300); // Delay between words
+          setDisplayedText(prev => prev + currentChar);
+          charIndex++;
+          typeNextChar();
+        }, 50); // Much faster delay for character-by-character typing
       } else {
         setIsTyping(false);
+        setTimeout(() => setShowCursor(false), 1000); // Hide cursor after typing completes
       }
     };
 
-    setTimeout(typeNextWord, 500); // Initial delay
+    setTimeout(typeNextChar, 500); // Initial delay
   };
 
   useEffect(() => {

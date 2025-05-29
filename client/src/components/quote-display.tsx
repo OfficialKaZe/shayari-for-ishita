@@ -19,7 +19,7 @@ export default function QuoteDisplay({ onShowShayari }: QuoteDisplayProps) {
       {/* Quote Section */}
       <div className="glass-card p-8 md:p-12 max-w-4xl mx-auto mb-12 text-center animate-float">
         <h1 className="font-playfair text-4xl md:text-6xl font-bold text-white mb-8 leading-tight">
-          Galaxy of Love
+          For Ishita ❤️
         </h1>
         <div className="text-xl md:text-2xl font-playfair text-soft-gold leading-relaxed">
           {currentQuote}
