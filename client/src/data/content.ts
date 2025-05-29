@@ -10,75 +10,183 @@ export const quotes = [
 ];
 
 export const shayaris = [
-  `Your smile lights up my darkest days,
-Like stars that dance in cosmic ways,
-In your eyes I see my home,
-With you, I'm never alone,
-You're the melody my heart always plays.`,
+  `Kabhi tu udaas ho, toh bas aankhein band kar lena,
+Main teri yaadon mein, khamoshi se aa jaunga.
+Har aansu tere chehre se chura lunga,
+Tere chehre pe muskaan phir se saja dunga.
+Tujhko har dard se chhupa lunga.`,
 
-  `Time may change and seasons pass,
-But your friendship will forever last,
-Through storms and sunshine, joy and tears,
-You've been my strength throughout the years,
-A bond so precious, unsurpassed.`,
+  `Tere ishq mein, main kho gaya hoon,
+Har raah mein tera intezaar karta hoon.
+Tu meri duniya, tu meri jaan hai,
+Tere bina zindagi bekaar karta hoon.
+Tujhse mohabbat meri ibadat hai.`,
 
-  `Love isn't just a word we say,
-It's in the little things each day,
-The way you care, the way you smile,
-Makes every moment so worthwhile,
-In your love, I find my way.`,
+  `Khamoshi mein chhupe hain mere jazbaat,
+Tere liye dhadakta hai mera dil raat.
+Tu jo paas ho toh sab kuch hai,
+Tu jo door ho toh sirf malamat.
+Tere bina adhura hoon main.`,
 
-  `Sometimes betrayal cuts so deep,
-It makes the strongest person weep,
-But from the ashes we can rise,
-With wisdom gleaming in our eyes,
-Some lessons hurt, but ours to keep.`,
+  `Teri muskurahat meri khushi hai,
+Teri pareshani meri pareeshani hai.
+Jo bhi haal ho, main saath hoon tera,
+Yeh meri mohabbat ki guarantee hai.
+Tujhse juda kabhi nahi hounga.`,
 
-  `Nostalgia paints our yesterdays,
-In golden light and gentle rays,
-Sweet memories that time can't steal,
-Moments that still make us feel,
-The magic of our carefree days.`,
+  `Waqt guzar jaaye, mausam badal jaaye,
+Meri mohabbat kabhi na badlegi.
+Tere saath guzaare lamhaat yaad rahe,
+Meri dil ki ye deewaanegi.
+Tu hamesha meri jaan rahegi.`,
 
-  `Your presence is a precious gift,
-Whenever I'm down, you always lift,
-My spirits high above the ground,
-In you, true friendship I have found,
-Through you, my heart continues to drift.`,
+  `Kabhi kisi ne dhoka diya ho tujhko,
+Main us gham ko door kar dunga.
+Tere dil ki har toothi umang ko,
+Phir se jinda kar dunga.
+Tere saath hoon, darna mat.`,
 
-  `In love's sweet symphony you're the tune,
-Like flowers blooming under moon,
-Your laughter echoes in my soul,
-With you, I feel completely whole,
-Our hearts dance to love's sweet croon.`,
+  `Raatein kati hain tere khayal mein,
+Din guzaara hai teri yaad mein.
+Tu jo mil jaaye toh zindagi haseen,
+Tu jo chali jaaye toh sab barbaad mein.
+Tere bina sab suna sa lagta hai.`,
 
-  `Distance may keep our bodies apart,
-But nothing can separate our hearts,
-Through phone calls, texts, and memories shared,
-You show me how much you have cared,
-True friendship never truly departs.`,
+  `Tere hasne ki awaz sunke,
+Mera dil khush ho jaata hai.
+Tere rone ki awaz sunke,
+Mera kaleja kat jaata hai.
+Tujhko khush dekhna chahta hoon.`,
 
-  `Your kindness knows no earthly bounds,
-In your love, my peace is found,
-Like rainfall on a thirsty land,
-You always lend a helping hand,
-With grace and beauty you astound.`,
+  `Mohabbat mein koi galat ya sahi nahi,
+Dil ki baat mein koi logic nahi.
+Main tujhse pyaar karta hoon,
+Isme koi apology nahi.
+Tu meri zindagi ka matlab hai.`,
 
-  `When shadows fall and hope seems lost,
-You help me brave whatever cost,
-Your faith in me helps me believe,
-That every dream I can achieve,
-With you, no bridge cannot be crossed.`,
+  `Teri aankhon mein dekha hai maine,
+Apna ghar, apna sukoon.
+Tere saath bitaaye pal yaad aate,
+Jab main hota hoon majboor.
+Teri yaadon mein kho jaata hoon.`,
 
-  `Love letters written in the stars,
-Etched in my heart, no distance mars,
-Each constellation spells your name,
-My feelings burn like sacred flame,
-You heal my deepest hidden scars.`,
+  `Koi kitni bhi dur ho jaaye,
+Mohabbat kabhi kam nahi hoti.
+Tere liye meri feelings hamesha,
+Waise hi strong rahegi.
+Distance doesn't matter to my heart.`,
 
-  `Thank you for being simply you,
-Authentic, caring, loving, true,
-In a world that's sometimes fake,
-You're real for real friendship's sake,
-I'm blessed to share this life with you.`
+  `Zindagi mein kitne log aaye gaye,
+Sab apne raah chale gaye.
+Sirf tu hai jo ab tak saath hai,
+Mere dil mein bas gaye.
+Tujhe bhoolna mumkin nahi.`,
+
+  `Teri baaton mein aise jadu hai,
+Ke main sun sun ke kho jaata hoon.
+Tere saath waqt itna haseen hai,
+Ke main time ko rok jaata hoon.
+Tere saath har pal special hai.`,
+
+  `Kabhi agar main naraaz lag raha hoon,
+Toh samjhna main hurt hoon.
+Par tu jaan le ek baat,
+Tujhse nafrat kabhi nahi kar sakta.
+Tujhko sirf mohabbat kar sakta hoon.`,
+
+  `Purani yaadon ka silsila,
+Dil mein abhi bhi zinda hai.
+Tere saath bitaaye din,
+Mere sapnon mein aaj bhi basa hai.
+Nostalgia ki meethi si khushi.`,
+
+  `Agar kabhi tujhe laga ho,
+Main tujhe chhod dunga.
+Toh tu galat samjhi hai,
+Main tujhe kabhi nahi bhool dunga.
+Zindagi bhar saath nibhaunga.`,
+
+  `Tere jaane ka gham nahi,
+Tere khush na hone ka gham hai.
+Main chahta hoon tu hamesha hansti rahe,
+Yahi meri sabse badi khwaish hai.
+Teri khushi meri priority hai.`,
+
+  `Dil ki baat kehna aasan nahi,
+Par tujhe batana zaroori hai.
+Tu meri har dua mein shamil hai,
+Tu meri zindagi ki poori hai.
+Tere bina kuch bhi incomplete hai.`,
+
+  `Rishte toote hain, bandhe hain,
+Par kuch log dil mein bas jaate hain.
+Tu bhi unhi mein se ek hai,
+Jo kabhi bhulaye nahi bhoolte.
+Hamesha yaad rahega tu.`,
+
+  `Mohabbat sirf words mein nahi,
+Actions mein dikhti hai.
+Main tujhe prove karunga,
+Ke meri feelings real hai.
+Trust kar mujh par.`,
+
+  `Tere bina ye duniya suni si lagti hai,
+Tere saath har jagah jannat lagti hai.
+Tu jo saath ho toh koi tension nahi,
+Tu jo door ho toh har baat bhari lagti hai.
+Tu meri jaan hai Ishita.`,
+
+  `Kabhi agar tune feel kiya ho,
+Ke main tujhe ignore kar raha hoon.
+Toh samjhna main confused hoon,
+Par pyaar tujhse hamesha kar raha hoon.
+Misunderstanding mat kar.`,
+
+  `Teri smile dekh ke lagta hai,
+Ke saari duniya ki khushi mil gayi.
+Teri problems dekh ke lagta hai,
+Ke meri saari happiness chhin gayi.
+Tujhko dekh kar jeeta hoon.`,
+
+  `Jo bhi hua hai past mein,
+Main uske liye sorry hoon.
+Par ek baat clear kar dun,
+Tere liye hamesha ready hoon.
+Tu bol toh sab theek kar dun.`,
+
+  `Koi kitna bhi badal jaaye,
+Mere feelings constant rahengi.
+Tu agar 100 baar dhoka de,
+Main 101st time maaf karunga.
+Unconditional love hai yeh.`,
+
+  `Late night conversations yaad aate,
+Wo hasna hasaana yaad aata.
+Teri har baat, har smile,
+Sab kuch yaad aata.
+Good old days ki yaadein.`,
+
+  `Teri har galti maaf hai,
+Tera har mood accept hai.
+Tu jaise bhi hai, perfect hai,
+Change karne ki zaroorat nahi.
+Tu already amazing hai.`,
+
+  `Zindagi mein jo bhi challenges aayein,
+Main tera support system rahunga.
+Tu kabhi akeli feel na kar,
+Main hamesha tera backing rahunga.
+Together we can face anything.`,
+
+  `Tere khwaabon ko poora karne mein,
+Main apni puri zindagi laga dun.
+Teri har wish fulfill karne mein,
+Apna sab kuch qurbaan kar dun.
+Tujhe khush dekhna chahta hoon.`,
+
+  `Thank you for being in my life,
+Tu aayi toh colors aa gaye.
+Pehle sab black and white tha,
+Tere saath rainbow ban gaye.
+Life mein tu hi toh rang hai.`
 ];

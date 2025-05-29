@@ -28,16 +28,22 @@ export default function GalaxyBackground() {
         fallingStar.className = 'falling-star';
         fallingStar.style.left = Math.random() * 100 + '%';
         fallingStar.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        fallingStar.style.animationDelay = Math.random() * 2 + 's';
         galaxyBg.appendChild(fallingStar);
 
         setTimeout(() => {
           if (fallingStar.parentNode) {
             fallingStar.remove();
           }
-        }, 5000);
+        }, 8000);
       };
 
-      const interval = setInterval(addFallingStar, 2000);
+      // Create initial falling stars
+      for (let i = 0; i < 3; i++) {
+        setTimeout(addFallingStar, i * 500);
+      }
+
+      const interval = setInterval(addFallingStar, 1500);
       return () => clearInterval(interval);
     };
 

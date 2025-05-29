@@ -72,9 +72,6 @@ export default function ShayariDisplay({ onBackToQuote }: ShayariDisplayProps) {
           <h2 className="font-playfair text-3xl md:text-4xl font-bold text-white mb-4">
             Words from the Heart
           </h2>
-          <div className="text-sm text-gray-300">
-            {currentShayariIndex + 1} of {shayaris.length}
-          </div>
         </div>
 
         {/* Shayari Text Display */}
