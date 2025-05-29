@@ -109,6 +109,87 @@
     box-shadow: 0 0 10px hsl(var(--star-gold));
   }
 
+  .shooting-star {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: linear-gradient(45deg, #FFD700, #FFF, #87CEEB);
+    border-radius: 50%;
+    box-shadow: 0 0 15px #FFD700, 0 0 25px #FFD700;
+  }
+
+  .shooting-star::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.8), rgba(255, 215, 0, 0.4), transparent);
+    transform: rotate(-45deg);
+    transform-origin: 0 0;
+  }
+
+  .floating-heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #ff6b9d;
+    transform: rotate(45deg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: floatUp 8s linear infinite;
+  }
+
+  .floating-heart::before,
+  .floating-heart::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #ff6b9d;
+    border-radius: 50%;
+  }
+
+  .floating-heart::before {
+    top: -10px;
+    left: 0;
+  }
+
+  .floating-heart::after {
+    top: 0;
+    left: -10px;
+  }
+
+  .floating-heart:hover {
+    transform: rotate(45deg) scale(1.2);
+    filter: brightness(1.2);
+  }
+
+  .heart-pop {
+    animation: heartPop 0.6s ease-out forwards;
+  }
+
+  .message-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    border: 2px solid hsl(var(--star-gold));
+    border-radius: 20px;
+    padding: 20px 30px;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: hsl(var(--space-navy));
+    text-align: center;
+    z-index: 1000;
+    animation: messageSlideIn 0.5s ease-out;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+  }
+
   .glass-card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
@@ -189,6 +270,60 @@
   100% {
     transform: translateY(100vh) translateX(100px);
     opacity: 0;
+  }
+}
+
+@keyframes shootingStar {
+  0% {
+    transform: translateY(-50px) translateX(-50px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) translateX(100vw);
+    opacity: 0;
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(100vh) rotate(45deg);
+    opacity: 0.8;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+@keyframes heartPop {
+  0% {
+    transform: rotate(45deg) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: rotate(45deg) scale(1.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: rotate(45deg) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes messageSlideIn {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
   }
 }
 

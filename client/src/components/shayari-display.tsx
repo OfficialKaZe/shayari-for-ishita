@@ -31,7 +31,7 @@ export default function ShayariDisplay({ onBackToQuote }: ShayariDisplayProps) {
           setDisplayedText(prev => prev + currentChar);
           charIndex++;
           typeNextChar();
-        }, 50); // Much faster delay for character-by-character typing
+        }, 30); // Ultra smooth character-by-character typing
       } else {
         setIsTyping(false);
         setTimeout(() => setShowCursor(false), 1000); // Hide cursor after typing completes
