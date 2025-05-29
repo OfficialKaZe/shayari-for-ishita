@@ -1,0 +1,220 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500&display=swap');
+
+:root {
+  --background: 210 11% 3%; /* #0B1426 */
+  --foreground: 0 0% 98%;
+  --muted: 240 5% 15%;
+  --muted-foreground: 240 5% 65%;
+  --popover: 240 10% 4%;
+  --popover-foreground: 0 0% 98%;
+  --card: 240 10% 4%;
+  --card-foreground: 0 0% 98%;
+  --border: 240 4% 16%;
+  --input: 240 4% 16%;
+  --primary: 207 90% 54%;
+  --primary-foreground: 211 100% 99%;
+  --secondary: 240 4% 16%;
+  --secondary-foreground: 0 0% 98%;
+  --accent: 240 4% 16%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 60 9% 98%;
+  --ring: 240 5% 84%;
+  --radius: 0.5rem;
+  
+  /* Custom colors for galaxy theme */
+  --space-navy: 203 82% 8%; /* #0B1426 */
+  --cosmic-purple: 262 74% 11%; /* #1A0B2E */
+  --star-gold: 51 100% 50%; /* #FFD700 */
+  --soft-gold: 47 84% 79%; /* #F5E6A3 */
+  --space-blue: 218 48% 19%; /* #162447 */
+  --deep-purple: 257 79% 20%; /* #2E1065 */
+}
+
+.dark {
+  --background: 203 82% 8%;
+  --foreground: 0 0% 98%;
+  --muted: 240 4% 16%;
+  --muted-foreground: 240 5% 65%;
+  --popover: 240 10% 4%;
+  --popover-foreground: 0 0% 98%;
+  --card: 240 10% 4%;
+  --card-foreground: 0 0% 98%;
+  --border: 240 4% 16%;
+  --input: 240 4% 16%;
+  --primary: 207 90% 54%;
+  --primary-foreground: 211 100% 99%;
+  --secondary: 240 4% 16%;
+  --secondary-foreground: 0 0% 98%;
+  --accent: 240 4% 16%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62% 31%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 240 5% 84%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    margin: 0;
+    overflow-x: hidden;
+    background: linear-gradient(135deg, hsl(var(--space-navy)) 0%, hsl(var(--cosmic-purple)) 50%, hsl(var(--space-blue)) 100%);
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer components {
+  .font-playfair {
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .galaxy-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+    overflow: hidden;
+    z-index: -1;
+  }
+
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 2s ease-in-out infinite;
+  }
+
+  .falling-star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: linear-gradient(45deg, hsl(var(--star-gold)), #FFF);
+    border-radius: 50%;
+    animation: fallingStar 3s linear infinite;
+    box-shadow: 0 0 10px hsl(var(--star-gold));
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .typewriter-cursor {
+    border-right: 2px solid hsl(var(--star-gold));
+    animation: blink 1s infinite;
+  }
+
+  .btn-glow {
+    transition: all 0.3s ease;
+  }
+
+  .btn-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-twinkle {
+    animation: twinkle 2s ease-in-out infinite;
+  }
+  
+  .animate-falling-star {
+    animation: fallingStar 3s linear infinite;
+  }
+  
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .text-star-gold {
+    color: hsl(var(--star-gold));
+  }
+  
+  .text-soft-gold {
+    color: hsl(var(--soft-gold));
+  }
+  
+  .bg-space-navy {
+    background-color: hsl(var(--space-navy));
+  }
+  
+  .bg-cosmic-purple {
+    background-color: hsl(var(--cosmic-purple));
+  }
+  
+  .bg-space-blue {
+    background-color: hsl(var(--space-blue));
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% { 
+    opacity: 0.3; 
+    transform: scale(1); 
+  }
+  50% { 
+    opacity: 1; 
+    transform: scale(1.2); 
+  }
+}
+
+@keyframes fallingStar {
+  0% {
+    transform: translateY(-100vh) translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) translateX(100px);
+    opacity: 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px); 
+  }
+  50% { 
+    transform: translateY(-20px); 
+  }
+}
+
+@keyframes glow {
+  from { 
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); 
+  }
+  to { 
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); 
+  }
+}
+
+@keyframes blink {
+  0%, 50% { 
+    border-color: hsl(var(--star-gold)); 
+  }
+  51%, 100% { 
+    border-color: transparent; 
+  }
+}
