@@ -30,6 +30,9 @@
         font-family: 'Inter', sans-serif;
         overflow-x: hidden;
         color: white;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        touch-action: manipulation;
       }
 
       .galaxy-bg {
@@ -83,33 +86,35 @@
 
       .floating-heart {
         position: absolute;
-        width: 20px;
-        height: 20px;
+        width: 25px;
+        height: 25px;
         background: #ff6b9d;
         transform: rotate(45deg);
         cursor: pointer;
         transition: all 0.3s ease;
         animation: floatUp 8s linear infinite;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
       }
 
       .floating-heart::before,
       .floating-heart::after {
         content: '';
         position: absolute;
-        width: 20px;
-        height: 20px;
+        width: 25px;
+        height: 25px;
         background: #ff6b9d;
         border-radius: 50%;
       }
 
       .floating-heart::before {
-        top: -10px;
+        top: -12px;
         left: 0;
       }
 
       .floating-heart::after {
         top: 0;
-        left: -10px;
+        left: -12px;
       }
 
       .floating-heart:hover {
@@ -158,7 +163,7 @@
       .button {
         background: linear-gradient(45deg, #9333ea, #ec4899);
         border: none;
-        padding: 15px 30px;
+        padding: 18px 35px;
         border-radius: 25px;
         color: white;
         font-size: 18px;
@@ -166,6 +171,10 @@
         cursor: pointer;
         transition: all 0.3s ease;
         margin: 10px;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        min-height: 48px;
+        min-width: 48px;
       }
 
       .button:hover {
@@ -273,13 +282,67 @@
       }
 
       @media (max-width: 768px) {
+        .main-container {
+          padding: 15px;
+        }
+        
+        .glass-card {
+          padding: 2rem !important;
+        }
+        
+        .title {
+          font-size: 2.5rem !important;
+        }
+        
+        .quote {
+          font-size: 1.2rem !important;
+        }
+        
         .controls {
           flex-direction: column;
           align-items: center;
+          gap: 10px;
         }
         
         .button {
-          width: 200px;
+          width: 250px;
+          padding: 20px 40px;
+          font-size: 16px;
+        }
+        
+        .shayari-text {
+          font-size: 1.1rem !important;
+          padding: 0 10px;
+        }
+        
+        .shayari-container {
+          padding: 2rem !important;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        .glass-card {
+          padding: 1.5rem !important;
+          margin: 10px;
+        }
+        
+        .title {
+          font-size: 2rem !important;
+        }
+        
+        .quote {
+          font-size: 1.1rem !important;
+        }
+        
+        .button {
+          width: 220px;
+          padding: 18px 30px;
+          font-size: 15px;
+        }
+        
+        .shayari-text {
+          font-size: 1rem !important;
+          min-height: 150px;
         }
       }
     </style>
@@ -450,7 +513,7 @@
           heart.style.animationDuration = (Math.random() * 3 + 6) + 's';
           heart.style.animationDelay = Math.random() * 2 + 's';
           
-          heart.addEventListener('click', () => {
+          const showMessage = () => {
             heart.classList.add('heart-pop');
             
             const message = document.createElement('div');
@@ -469,6 +532,13 @@
                 heart.remove();
               }
             }, 600);
+          };
+
+          // Support both click and touch events
+          heart.addEventListener('click', showMessage);
+          heart.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            showMessage();
           });
 
           galaxyBg.appendChild(heart);
@@ -540,6 +610,31 @@
 
       // Initialize when page loads
       window.addEventListener('load', init);
+      
+      // Also initialize on DOMContentLoaded for faster loading on mobile
+      document.addEventListener('DOMContentLoaded', init);
+      
+      // Prevent zoom on double tap for iOS
+      let lastTouchEnd = 0;
+      document.addEventListener('touchend', function (event) {
+        const now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) {
+          event.preventDefault();
+        }
+        lastTouchEnd = now;
+      }, false);
+      
+      // Optimize performance for mobile
+      if (window.innerWidth <= 768) {
+        // Reduce animation frequency on mobile
+        const originalSetInterval = window.setInterval;
+        window.setInterval = function(callback, delay) {
+          if (delay < 2000) {
+            delay = delay * 1.5; // Slow down animations on mobile
+          }
+          return originalSetInterval(callback, delay);
+        };
+      }
     </script>
   </body>
 </html>
