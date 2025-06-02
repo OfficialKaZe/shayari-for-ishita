@@ -33,6 +33,15 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         touch-action: manipulation;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+      }
+      
+      * {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
       }
 
       .galaxy-bg {
@@ -44,6 +53,9 @@
         background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
         overflow: hidden;
         z-index: -1;
+        will-change: transform;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
       }
 
       .star {
@@ -444,6 +456,8 @@
 
       let currentShayariIndex = 0;
       let isTyping = false;
+      let typingInterval = null;
+      let preventScrollInterruption = false;
 
       // Initialize the website
       function init() {
@@ -572,22 +586,35 @@
         const shayariElement = document.getElementById('shayari-text');
         shayariElement.innerHTML = '';
         isTyping = true;
+        preventScrollInterruption = true;
 
         const chars = shayari.split('');
         let charIndex = 0;
         let displayedText = '';
 
+        // Clear any existing typing interval
+        if (typingInterval) {
+          clearInterval(typingInterval);
+        }
+
         const typeNextChar = () => {
-          if (charIndex < chars.length) {
+          if (charIndex < chars.length && isTyping) {
             const currentChar = chars[charIndex];
             displayedText += currentChar;
             shayariElement.innerHTML = displayedText + '<span class="typewriter-cursor"></span>';
             charIndex++;
-            setTimeout(typeNextChar, 30);
-          } else {
+            
+            // Use requestAnimationFrame for smoother performance
+            typingInterval = requestAnimationFrame(() => {
+              setTimeout(typeNextChar, 40);
+            });
+          } else if (charIndex >= chars.length) {
             isTyping = false;
+            preventScrollInterruption = false;
             setTimeout(() => {
-              shayariElement.innerHTML = displayedText;
+              if (shayariElement) {
+                shayariElement.innerHTML = displayedText;
+              }
             }, 1000);
           }
         };
@@ -595,17 +622,39 @@
         setTimeout(typeNextChar, 500);
       }
 
+      // Prevent scroll interruption during typing
+      document.addEventListener('scroll', () => {
+        if (preventScrollInterruption && isTyping) {
+          // Don't interrupt typing on scroll
+          return;
+        }
+      });
+
       // Navigation functions
       function nextShayari() {
-        if (isTyping) return;
+        // Force complete current typing before proceeding
+        if (isTyping) {
+          isTyping = false;
+          preventScrollInterruption = false;
+          if (typingInterval) {
+            cancelAnimationFrame(typingInterval);
+          }
+        }
         currentShayariIndex = (currentShayariIndex + 1) % shayaris.length;
-        displayCurrentShayari();
+        setTimeout(() => displayCurrentShayari(), 100);
       }
 
       function previousShayari() {
-        if (isTyping) return;
+        // Force complete current typing before proceeding
+        if (isTyping) {
+          isTyping = false;
+          preventScrollInterruption = false;
+          if (typingInterval) {
+            cancelAnimationFrame(typingInterval);
+          }
+        }
         currentShayariIndex = currentShayariIndex === 0 ? shayaris.length - 1 : currentShayariIndex - 1;
-        displayCurrentShayari();
+        setTimeout(() => displayCurrentShayari(), 100);
       }
 
       // Initialize when page loads
@@ -626,7 +675,7 @@
       
       // Optimize performance for mobile
       if (window.innerWidth <= 768) {
-        // Reduce animation frequency on mobile
+        // Reduce animation frequency on mobile for better performance
         const originalSetInterval = window.setInterval;
         window.setInterval = function(callback, delay) {
           if (delay < 2000) {
@@ -635,6 +684,23 @@
           return originalSetInterval(callback, delay);
         };
       }
+      
+      // Improve scroll performance on mobile
+      let ticking = false;
+      function updateScrollPosition() {
+        // Throttle scroll events for better performance
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }
+      
+      // Add passive event listeners for better scroll performance
+      document.addEventListener('scroll', updateScrollPosition, { passive: true });
+      document.addEventListener('touchstart', function() {}, { passive: true });
+      document.addEventListener('touchmove', function() {}, { passive: true });
     </script>
   </body>
 </html>
