@@ -37,11 +37,18 @@
         scroll-behavior: smooth;
       }
       
+      html {
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
+      
       * {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
       }
 
       .galaxy-bg {
@@ -53,9 +60,8 @@
         background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
         overflow: hidden;
         z-index: -1;
-        will-change: transform;
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
+        will-change: auto;
+        contain: layout style paint;
       }
 
       .star {
@@ -187,6 +193,14 @@
         -webkit-tap-highlight-color: transparent;
         min-height: 48px;
         min-width: 48px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        will-change: transform;
       }
 
       .button:hover {
@@ -372,7 +386,7 @@
       </div>
 
       <div id="quote-section">
-        <button class="button" onclick="showShayari()">
+        <button class="button" onclick="showShayari()" ontouchstart="showShayari()">
           Read Beautiful Shayaris 💫
         </button>
       </div>
@@ -383,13 +397,13 @@
         </h2>
         <div class="shayari-text" id="shayari-text"></div>
         <div class="controls">
-          <button class="button" onclick="previousShayari()" style="background: linear-gradient(45deg, #2563eb, #9333ea);">
+          <button class="button" onclick="previousShayari()" ontouchstart="" style="background: linear-gradient(45deg, #2563eb, #9333ea);">
             ← Previous
           </button>
-          <button class="button" onclick="nextShayari()" style="background: linear-gradient(45deg, #059669, #2563eb);">
+          <button class="button" onclick="nextShayari()" ontouchstart="" style="background: linear-gradient(45deg, #059669, #2563eb);">
             Next →
           </button>
-          <button class="button" onclick="backToQuote()" style="background: linear-gradient(45deg, #dc2626, #ec4899);">
+          <button class="button" onclick="backToQuote()" ontouchstart="" style="background: linear-gradient(45deg, #dc2626, #ec4899);">
             Back to Quote
           </button>
         </div>
@@ -473,8 +487,11 @@
       function createGalaxyBackground() {
         const galaxyBg = document.getElementById('galaxyBg');
         
+        // Reduce star count on mobile for better performance
+        const starCount = window.innerWidth <= 768 ? 50 : 100;
+        
         // Create static stars
-        for (let i = 0; i < 150; i++) {
+        for (let i = 0; i < starCount; i++) {
           const star = document.createElement('div');
           star.className = 'star';
           star.style.left = Math.random() * 100 + '%';
@@ -483,17 +500,19 @@
           star.style.height = star.style.width;
           star.style.animationDelay = Math.random() * 2 + 's';
           star.style.animationDuration = (Math.random() * 4 + 2) + 's';
-          star.style.filter = 'blur(0.5px)';
+          star.style.willChange = 'opacity, transform';
           galaxyBg.appendChild(star);
         }
 
-        // Create falling stars
+        // Create falling stars (less frequent on mobile)
+        const fallingStarInterval = window.innerWidth <= 768 ? 2000 : 1000;
         setInterval(() => {
           const fallingStar = document.createElement('div');
           fallingStar.className = 'falling-star';
           fallingStar.style.left = Math.random() * 100 + '%';
           fallingStar.style.animationDuration = (Math.random() * 2 + 2) + 's';
           fallingStar.style.animationDelay = Math.random() * 1 + 's';
+          fallingStar.style.willChange = 'transform, opacity';
           galaxyBg.appendChild(fallingStar);
 
           setTimeout(() => {
@@ -501,31 +520,36 @@
               fallingStar.remove();
             }
           }, 6000);
-        }, 1000);
+        }, fallingStarInterval);
 
-        // Create shooting stars
-        setInterval(() => {
-          const shootingStar = document.createElement('div');
-          shootingStar.className = 'shooting-star';
-          shootingStar.style.left = Math.random() * 30 + '%';
-          shootingStar.style.top = Math.random() * 30 + '%';
-          shootingStar.style.animation = `shootingStar ${Math.random() * 2 + 1.5}s linear`;
-          galaxyBg.appendChild(shootingStar);
+        // Create shooting stars (less frequent on mobile)
+        if (window.innerWidth > 480) {
+          setInterval(() => {
+            const shootingStar = document.createElement('div');
+            shootingStar.className = 'shooting-star';
+            shootingStar.style.left = Math.random() * 30 + '%';
+            shootingStar.style.top = Math.random() * 30 + '%';
+            shootingStar.style.animation = `shootingStar ${Math.random() * 2 + 1.5}s linear`;
+            shootingStar.style.willChange = 'transform, opacity';
+            galaxyBg.appendChild(shootingStar);
 
-          setTimeout(() => {
-            if (shootingStar.parentNode) {
-              shootingStar.remove();
-            }
+            setTimeout(() => {
+              if (shootingStar.parentNode) {
+                shootingStar.remove();
+              }
+            }, 4000);
           }, 4000);
-        }, 3000);
+        }
 
         // Create floating hearts
+        const heartInterval = window.innerWidth <= 768 ? 6000 : 4000;
         setInterval(() => {
           const heart = document.createElement('div');
           heart.className = 'floating-heart';
           heart.style.left = Math.random() * 90 + 5 + '%';
           heart.style.animationDuration = (Math.random() * 3 + 6) + 's';
           heart.style.animationDelay = Math.random() * 2 + 's';
+          heart.style.willChange = 'transform, opacity';
           
           const showMessage = () => {
             heart.classList.add('heart-pop');
@@ -567,10 +591,27 @@
 
       // Show shayari section
       function showShayari() {
-        document.getElementById('quote-section').style.display = 'none';
-        document.getElementById('shayari-section').style.display = 'block';
-        displayCurrentShayari();
+        console.log('showShayari called');
+        const quoteSection = document.getElementById('quote-section');
+        const shayariSection = document.getElementById('shayari-section');
+        
+        if (quoteSection && shayariSection) {
+          quoteSection.style.display = 'none';
+          shayariSection.style.display = 'block';
+          setTimeout(() => displayCurrentShayari(), 200);
+        }
       }
+      
+      // Add event listeners for better mobile support
+      document.addEventListener('DOMContentLoaded', function() {
+        const shayariButton = document.querySelector('#quote-section .button');
+        if (shayariButton) {
+          shayariButton.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            showShayari();
+          });
+        }
+      });
 
       // Back to quote section
       function backToQuote() {
